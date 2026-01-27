@@ -2,11 +2,13 @@ CREATE DATABASE IF NOT EXISTS PixelBayDB;
 USE PixelBayDB;
 
 -- Suppression dans l'ordre pour éviter les erreurs de clés étrangères
-DROP TABLE IF EXISTS Contient;
-DROP TABLE IF EXISTS produit;
-DROP TABLE IF EXISTS category;
+DROP TABLE IF EXISTS orders_produit;
 DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS produit;
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS category;
+
+
 
 
 
@@ -49,7 +51,7 @@ INSERT INTO orders (status, Id_user) VALUES
 ('annulée', 5),
 ('livrée', 2);
 
-SELECT * FROM orders;
+-- SELECT * FROM orders;
 
 
 
@@ -94,10 +96,20 @@ INSERT INTO produit (name, price, in_stock, Id_Categorie) VALUES
 
 
 
-CREATE TABLE Contient(
+CREATE TABLE orders_produit (
    Id_order INT,
    Id_Produit INT,
    PRIMARY KEY(Id_order, Id_Produit),
    FOREIGN KEY(Id_order) REFERENCES orders(Id_order) ON DELETE CASCADE,
    FOREIGN KEY(Id_Produit) REFERENCES produit(Id_Produit) ON DELETE CASCADE
 );
+
+INSERT INTO orders_produit (Id_order, Id_Produit) VALUES
+(2, 3),
+(2, 2), (2, 6), (2,5),
+(3, 3), (3, 7), (3, 1), (3, 5), 
+(4, 4), (5,2),
+(5, 8), (5, 4);
+
+
+SELECT p.name, p.price, c.name FROM produit p JOIN category c ON p.Id_categorie = c.Id_categorie WHERE c.name = 'RPG' AND p.in_stock = TRUE;
