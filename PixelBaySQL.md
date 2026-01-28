@@ -101,6 +101,14 @@ WHERE name = 'Elden Ring';
 # MISSION 10 : Fonctions avancées (GROUP BY, AVG, MAX, MIN) :
 
 Écrire une requête pour calculer le prix moyen des produits par catégorie :
+SELECT c.name AS Categorie, AVG(p.price) AS prix_moyen
+FROM produit p JOIN category c ON p.Id_Categorie = c.Id_categorie
+GROUP BY c.name;
+
+Écrire une requête pour trouver le produit le plus cher et le moins cher : 
+
+
+
 
 
 

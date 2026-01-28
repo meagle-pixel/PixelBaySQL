@@ -1,7 +1,7 @@
 CREATE DATABASE IF NOT EXISTS PixelBayDB;
 USE PixelBayDB;
 
--- Suppression dans l'ordre pour éviter les erreurs de clés étrangères
+
 DROP TABLE IF EXISTS orders_produit;
 DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS produit;
@@ -129,7 +129,13 @@ INSERT INTO orders_produit (Id_order, Id_Produit) VALUES
 -- SET status = 'livrée'
 -- WHERE Id_user = 3;
 
-UPDATE produit
-SET in_stock = FALSE
-WHERE name = 'Elden Ring';
-SELECT * FROM produit;
+-- UPDATE produit
+-- SET in_stock = FALSE
+-- WHERE name = 'Elden Ring';
+-- SELECT * FROM produit;
+
+SELECT c.name AS Categorie, AVG(p.price) AS prix_moyen
+FROM produit p JOIN category c ON p.Id_Categorie = c.Id_categorie
+GROUP BY c.name;
+
+SELECT 
