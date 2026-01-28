@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS PixelBayDB;
-USE PixelBayDB;
+CREATE DATABASE IF NOT EXISTS maximepau_pixelbaydb;
+USE maximepau_pixelbaydb;
 
 
 DROP TABLE IF EXISTS orders_produit;
@@ -138,4 +138,4 @@ SELECT c.name AS Categorie, AVG(p.price) AS prix_moyen
 FROM produit p JOIN category c ON p.Id_Categorie = c.Id_categorie
 GROUP BY c.name;
 
-SELECT 
+
