@@ -3,7 +3,7 @@
 
 ![alt text](image.png)
 ![alt text](image-1.png)
-
+![alt text](image-3.png)
 
 
 
@@ -67,10 +67,56 @@ SELECT * FROM contient;
 # MISSION 8 : Requêtes de sélection
 
 Écrire une requête pour mettre à jour le prix d'un produit existant : 
-
 SELECT p.name, p.price, c.name FROM produit p JOIN category c 
 ON p.Id_categorie = c.Id_categorie 
 WHERE c.name = 'RPG' AND p.in_stock = TRUE;
+
+Écrire une requête pour trouver tous les produits en stock triés par prix croissant :
+SELECT * FROM produit p WHERE p.in_stock = TRUE ORDER BY p.price ASC;
+
+Écrire une requête pour afficher le nombre de produits par catégorie :
+
+SELECT c.name AS Categorie, COUNT(p.name) AS Nombre_de_Produits
+FROM produit p
+JOIN category c ON p.Id_Categorie = c.Id_Categorie
+GROUP BY c.name;
+
+# MISSION 9 : Mises à jour des données
+
+Écrire une requête pour mettre à jour le prix d'un produit existant
+UPDATE produit
+SET price = 29.99
+WHERE name = 'The Witcher 3';
+
+Écrire une requête pour changer le statut d'une commande à "livrée"
+UPDATE orders
+SET status = 'livrée'
+WHERE Id_user = 3;
+
+Écrire une requête pour mettre un jeu en rupture de stock (in_stock = FALSE)
+UPDATE produit
+SET in_stock = FALSE
+WHERE name = 'Elden Ring';
+
+# MISSION 10 : Fonctions avancées (GROUP BY, AVG, MAX, MIN) :
+
+Écrire une requête pour calculer le prix moyen des produits par catégorie :
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

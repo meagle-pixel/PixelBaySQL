@@ -58,7 +58,7 @@ INSERT INTO orders (status, Id_user) VALUES
 
 
 CREATE TABLE category(
-   Id_Categorie INT AUTO_INCREMENT PRIMARY KEY,
+   Id_categorie INT AUTO_INCREMENT PRIMARY KEY,
    name VARCHAR(50) NOT NULL
 );
 INSERT INTO category (name) VALUES
@@ -112,4 +112,24 @@ INSERT INTO orders_produit (Id_order, Id_Produit) VALUES
 (5, 8), (5, 4);
 
 
-SELECT p.name, p.price, c.name FROM produit p JOIN category c ON p.Id_categorie = c.Id_categorie WHERE c.name = 'RPG' AND p.in_stock = TRUE;
+-- SELECT p.name, p.price, c.name FROM produit p JOIN category c ON p.Id_categorie = c.Id_categorie WHERE c.name = 'RPG' AND p.in_stock = TRUE;
+
+-- SELECT * FROM produit p WHERE p.in_stock = TRUE ORDER BY p.price ASC;
+
+-- SELECT c.name AS Categorie, COUNT(p.name) AS Nombre_de_Produits
+-- FROM produit p
+-- JOIN category c ON p.Id_Categorie = c.Id_Categorie
+-- GROUP BY c.name;
+
+-- UPDATE produit
+-- SET price = 29.99
+-- WHERE name = 'The Witcher 3';
+
+-- UPDATE orders
+-- SET status = 'livrée'
+-- WHERE Id_user = 3;
+
+UPDATE produit
+SET in_stock = FALSE
+WHERE name = 'Elden Ring';
+SELECT * FROM produit;
