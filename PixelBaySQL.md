@@ -98,7 +98,7 @@ UPDATE produit
 SET in_stock = FALSE
 WHERE name = 'Elden Ring';
 
-# MISSION 10 : Fonctions avancées (GROUP BY, AVG, MAX, MIN) :
+# MISSION 10 : Fonctions avancées (GROUP BY, AVG, MAX, MIN) 
 
 Écrire une requête pour calculer le prix moyen des produits par catégorie :
 SELECT c.name AS Categorie, AVG(p.price) AS prix_moyen
@@ -106,12 +106,64 @@ FROM produit p JOIN category c ON p.Id_Categorie = c.Id_categorie
 GROUP BY c.name;
 
 Écrire une requête pour trouver le produit le plus cher et le moins cher : 
+SELECT MIN(p.price) AS Prix_bas, MAX(p.price) AS Prix_haut FROM produit p;
 
+OU
 
+(SELECT name, price FROM produit ORDER BY price ASC LIMIT 1) UNION
+(SELECT name, price FROM produit ORDER BY price DESC LIMIT 2);
 
+Écrire une requête pour compter le nombre de commandes par utilisateur : 
+SELECT u.name, COUNT(o.`Id_order`) AS nombre_commandes FROM users u LEFT JOIN orders o ON o.`Id_user` = u.`Id_user`
+GROUP BY u.`Id_user`, u.name;
 
+# MISSION 11 : Jointures complexes
 
+Écrire une requête qui affiche pour chaque commande :
+- Le nom et email de l'utilisateur
+- La date et le statut de la commande
+- Les produits commandés avec leur prix
 
+SELECT 
+    u.name AS utilisateur,
+    u.email AS email,
+    o.order_date AS date_commande,
+    o.status AS statut,
+    p.name AS produit,
+    p.price AS prix
+FROM orders o
+JOIN users u ON u.`Id_user` = o.`Id_user`
+JOIN orders_produit op ON o.`Id_order` = op.`Id_order`
+JOIN produit p ON op.`Id_Produit`= p.`Id_Produit`
+ORDER BY o.order_date, u.name;
+
+# MISSION 12 : Chiffre d'affaires par catégorie
+
+- Écrire une requête qui calcule le chiffre d'affaires total par catégorie
+- Chiffre d'affaires = somme des prix des produits commandés
+- Utiliser GROUP BY sur la catégorie
+- Utiliser SUM() pour calculer le total par catégorie
+- Trier le résultat par chiffre d'affaires décroissant
+
+SELECT c.name AS categorie, SUM(p.price) AS chiffre_affaires FROM category c 
+JOIN produit p ON c.`Id_categorie` = p.`Id_Categorie`
+JOIN orders_produit op ON op.`Id_Produit` = p.`Id_Produit`
+GROUP BY c.name
+ORDER BY chiffre_affaires DESC;
+
+# MISSION 13 : Suppression sécurisée
+
+- Écrire une requête pour supprimer un utilisateur
+- Vérifier que ses commandes disparaissent aussi (grâce à ON DELETE CASCADE)
+- Vérifier que les liens order_product associés à ces commandes sont supprimés
+- Vérifier l'intégrité de la base en utilisant des SELECT
+- Documenter les vérifications effectuées
+
+DELETE FROM users WHERE `Id_user`= 2;
+
+SELECT name FROM users;
+
+SELECT * FROM orders WHERE Id_user = 2; -- Vérification, il y a aucune ligne
 
 
 

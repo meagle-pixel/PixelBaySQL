@@ -134,8 +134,44 @@ INSERT INTO orders_produit (Id_order, Id_Produit) VALUES
 -- WHERE name = 'Elden Ring';
 -- SELECT * FROM produit;
 
-SELECT c.name AS Categorie, AVG(p.price) AS prix_moyen
-FROM produit p JOIN category c ON p.Id_Categorie = c.Id_categorie
-GROUP BY c.name;
+-- SELECT c.name AS Categorie, AVG(p.price) AS prix_moyen
+-- FROM produit p JOIN category c ON p.Id_Categorie = c.Id_categorie
+-- GROUP BY c.name;
 
+-- SELECT MIN(p.price) AS Prix_bas, MAX(p.price) AS Prix_haut FROM produit p;
+-- OR
+-- (SELECT name, price FROM produit ORDER BY price ASC LIMIT 1) UNION
+-- (SELECT name, price FROM produit ORDER BY price DESC LIMIT 2);
+
+-- SELECT u.name, COUNT(o.`Id_order`) AS nombre_commandes FROM users u LEFT JOIN orders o ON o.`Id_user` = u.`Id_user`
+-- GROUP BY u.`Id_user`, u.name;
+
+-- SELECT 
+--     u.name AS utilisateur,
+--     u.email AS email,
+--     o.order_date AS date_commande,
+--     o.status AS statut,
+--     p.name AS produit,
+--     p.price AS prix
+-- FROM orders o
+-- JOIN users u ON u.`Id_user` = o.`Id_user`
+-- JOIN orders_produit op ON o.`Id_order` = op.`Id_order`
+-- JOIN produit p ON op.`Id_Produit`= p.`Id_Produit`
+-- ORDER BY o.order_date, u.name;
+
+-- SELECT c.name AS categorie, SUM(p.price) AS chiffre_affaires FROM category c 
+-- JOIN produit p ON c.`Id_categorie` = p.`Id_Categorie`
+-- JOIN orders_produit op ON op.`Id_Produit` = p.`Id_Produit`
+-- GROUP BY c.name
+-- ORDER BY chiffre_affaires DESC;
+
+
+
+
+DELETE FROM users WHERE `Id_user`= 2;
+SELECT name FROM users;
+
+SELECT *
+FROM orders
+WHERE Id_user = 2; -- Vérification, il y a aucune ligne
 
